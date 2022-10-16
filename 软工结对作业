@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随机吃饭</title>
+    <style>
+        /* 初始化页面，清除所有元素的内外边距 */
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        p1{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            text-align: center;
+        }
+        img{
+            position:absolute;
+            left:50%;
+            top: 35%;
+            transform: translate(-50%,-50%);
+            max-width: 100%;
+            max-height: 100%;
+            width: 500px;
+            height: auto;
+        }
+        span{
+            color: gold;
+            letter-spacing: 0;
+            text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135
+        }
+        @keyframes ff{
+            to{filter: hue-rotate(360deg);}
+        }
+        /* 设置一下字体大小 */
+        span{
+            font-size: 54px;
+        }
+        
+
+    .button{
+    
+    background-color: #c02249;
+    width: 120px; 
+    height: 60px;
+    cursor: pointer;
+    transform: translate(-50%,-50%);
+    font-size: 23px;
+    border-radius: 50px;
+    color: aqua;
+    box-shadow:0 9px #1d1c1d;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    outline: none;
+}
+.button:hover{
+    background-color: #5f071d;
+}
+.button:active{
+    background-color: #5f071d;
+    box-shadow: 0 5px black;
+    transform: translate(-50%,-45%);
+    
+}
+.button.text
+{
+    position: absolute;
+    top:65%;
+    left:50%;
+    font-size: 30px;
+    width: 130px;
+    height: 65px;
+}
+.button.add
+{
+    position: absolute; 
+    top: 78%;
+    margin-left: -130px;
+    float: left;
+}
+.button.menu
+{
+    position: absolute;
+    top: 78%;
+    left:50%;
+}
+.button.menudelete
+{
+    position: absolute;
+    top: 78%;
+    margin-left: 130px;
+    float:right;
+}
+body{
+   background-size:cover;  
+   background-attachment:fixed;        
+   background-color:#706c6c;
+}
+
+#name_list{
+		    position: absolute;
+            top: 10%;
+            left: 50%;
+			transform: translate(-50%,-50%);
+			width: 50%;
+		}
+#showmenu{
+            position: absolute;
+            top: 12%;
+            left: 50%;
+			transform: translate(-50%,-50%);
+			width: 60%;
+}
+
+    </style>
+</head>
+<body background="https://ts1.cn.mm.bing.net/th/id/R-C.38b9872754f4c83d9157955f590fdfc6?rik=xSJodbxHSBya6Q&riu=http%3a%2f%2fa.33iq.com%2fupload%2f14%2f08%2f11%2fimages%2f14077278428433.gif&ehk=I2rY2qWD1dk5gn%2f0XrC%2fjNaW3Ins4CtEKzoQZZ%2fi37o%3d&risl=&pid=ImgRaw&r=0">
+    
+    <textarea id="showmenu" rows="8" value="" placeholder="菜单为空" style="font-size:18px;background-color: #ccdefa;color: #81909f;"disabled></textarea>
+    <textarea id="name_list" rows="4" value="" placeholder="请输入菜名，以中文逗号分隔" style="font-size:18px;background-color: #ccdefa;"></textarea>
+    <script>document.getElementById('showmenu').style.display="none";</script>
+    <script>document.getElementById('name_list').style.display="none";</script>
+    <p1>
+        <span id="name"></span>
+    </p1>
+
+        <img src="https://s2.loli.net/2022/10/14/HdmarkXhIQtg9NS.png" >
+
+        <marquee  behavior="scroll" direction="right" scrollamount="30"><font color="red" size="10px" >吃什么吃什么</font> </marquee>
+        <marquee  behavior="scroll" direction="left" scrollamount="50"><font size="10px">吃吃吃吃吃吃吃</font> </marquee>
+        <marquee  behavior="scroll" direction="right" scrollamount="40"><font size="5px">吃啥 吃啥 吃啥 吃啥</font> </marquee>
+        <marquee  behavior="scroll" direction="left" scrollamount="50"><font color="pink" size="10px">吃什么 吃什么 吃什么</font> </marquee>
+        <marquee  behavior="scroll" direction="right" scrollamount="28"><font color="red" size="5px">吃吃吃吃吃吃</font> </marquee>
+        <marquee  behavior="scroll" direction="left" scrollamount="20"><font color="greenyellow" size="5px">吃吃吃吃吃吃</font> </marquee>
+        <marquee  behavior="scroll" direction="right" scrollamount="30"><font size="8px" >吃什么</font> </marquee>
+        <marquee  behavior="scroll" direction="left" scrollamount="30"><font color="pink" size="8px">吃什么</font> </marquee>
+   
+    <button id="button_text" type="button" class="button text">吃什么</button> 
+    <div style="text-align: center;">
+    <button id="button_add" type="button" class="button add">加菜</button> 
+    <button id="button_menu" type="button" class="button menu">菜单</button> 
+    <button id="button_menudelete" type="button" class="button menudelete">清空菜单</button>
+    </div>
+    <script>
+        // 获取标签
+        let nametxt=document.getElementById('name');
+        let button1=document.getElementById('button_text');
+        let button2=document.getElementById('button_add');
+        let button3=document.getElementById('button_menu');
+        let button4=document.getElementById('button_menudelete');
+        // 创建一个数组存储名字
+        let uname=['冬灰条','蒸羊羔儿','蒸熊掌','蒸鹿尾儿',
+				'烧花鸭','烧雏鸡','烧子鹅','炉猪','炉鸭','酱鸡','腊肉','松花',
+				'小肚儿','晾肉','香肠儿','什锦苏盘儿','熏鸡白肚儿','清蒸八宝猪',
+				'江米酿鸭子','罐儿野鸡','罐儿鹌鹑','卤什件儿','卤子鹅','山鸡','兔脯',
+				'菜蟒','银鱼','清蒸哈什蚂','烩鸭腰儿','鸭条','清拌腰丝儿','黄心管儿'];
+        let add=['无'];
+        // 创建一个函数生成随机数字
+        function getrandom(min,max){
+            return Math.floor(Math.random()*(max-min-1)+min);
+        }
+        function clock(){
+            // 通过获取一个随机的数组下标实现随机获取一个名字，并将这个名字赋值给变量random
+            let random=uname[getrandom(0,uname.length-1)];
+            //将random塞到span里
+            nametxt.innerHTML=random;
+        };
+        // 打印名字已经实现了，下一步让没点击按钮前名字一直刷新
+        // 设置不停止时名字的刷新速度为70毫秒
+        let time=self.setInterval("clock()",70);
+        // 将开始与停止按钮绑定到按钮上，并通过按钮控制
+        let flag1=false;
+        let flag2=false;
+        let flag3=false;
+        button1.onclick=function(){
+            // 当flag标志为false时，点击按钮让刷新停止
+            if(flag1==false)
+            {
+                time=window.clearInterval(time);
+                // 按钮文字从stop变为start；
+                button1.innerHTML="吃这个";
+                // 标志变更
+                flag1=true;
+            }else{
+                // 当flag标志为true时，开始刷新，文字变更
+                time=self.setInterval("clock()",70);
+                button1.innerHTML="吃什么";
+                flag1=false;
+            }
+        }
+        //加菜
+        button2.onclick=function(){
+            if(flag2==false)
+            {
+                document.getElementById('name_list').style.display="inline";
+                flag2=true;
+            }
+            else{
+                let nameList=document.getElementById('name_list').value;
+		        if(nameList!=""){
+			     add=nameList.split("，");
+                 uname=uname.concat(add);
+                 alert("添加成功");
+                 document.getElementById('name_list').value='';
+			 }
+                document.getElementById('name_list').style.display="none";
+                flag2=false;
+            } 
+        }
+        button3.onclick=function(){
+            if(flag3==false){
+            document.getElementById('showmenu').value=uname.join(" , ");
+            document.getElementById('showmenu').style.display="inline";
+            flag3=true;
+        }   
+            else{
+                document.getElementById('showmenu').style.display="none";
+                flag3=false;
+            }
+        }
+        button4.onclick=function(){
+            uname=[];
+            document.getElementById("cai").innerHTML=' ';
+        }
+    </script>
+</body>
+</html>
